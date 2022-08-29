@@ -20,6 +20,8 @@
     <p class="nav-text">Convert from English to Pirate speak. Shiver me timbers! I be needin' t' send 'em all to Davy
       Jones' locker. Arrrrr! Anyway go ahead and translate and have some fun!</p>
   </nav>
+  <div class="img-container"><img src="./imgs/pirate.gif" alt="not found"></div>
+
   <div class="display-div">
     <textarea placeholder="please enter the text you want to convert" id="input-text"></textarea>
     <div class="btn">
@@ -54,10 +56,9 @@
   const clear = document.querySelector('#clear-btn')
   const error = document.querySelector("#error")
 
-
   outputText.innerHTML = '<small style="color:gray; letter-spacing:0.1rem;">your converted pirate text would appear here</small>'
 
-  const api = "https://lessonfourapi.tanaypratap.repl.co/translate/yoda.json"
+  const api = "https://api.funtranslations.com/translate/pirate.json"
 
   const constructApi = (text) => {
     return `${api}?text=${text}`
@@ -66,6 +67,7 @@
 
     if (inputText.value) {
       outputText.textContent = 'Translation is in progress ... '
+
       fetch(constructApi(inputText.value))
         .then(response => response.json())
         .then(json =>
