@@ -27,7 +27,8 @@
       <button id="clear-btn">Clear</button>
     </div>
 
-    <textarea placeholder="your pirate text would appear here" id="output-text"></textarea>
+    <div id="output-text">
+    </div>
   </div>
   <footer class="footer">
     <p class="footer-text">Made with 💖 by Aritra Chowdhury</p>
@@ -47,7 +48,47 @@
   </footer>
 </body>
 <script>
+  const inputText = document.querySelector('#input-text')
+  const outputText = document.querySelector('#output-text')
+  const translate = document.querySelector('#translate-btn')
+  const clear = document.querySelector('#clear-btn')
+  const error = document.querySelector("#error")
 
+
+  outputText.innerHTML = '<small style="color:gray; letter-spacing:0.1rem;">your converted pirate text would appear here</small>'
+
+  const api = "https://lessonfourapi.tanaypratap.repl.co/translate/yoda.json"
+
+  const constructApi = (text) => {
+    return `${api}?text=${text}`
+  }
+  const translateEventHandler = () => {
+
+    if (inputText.value) {
+      outputText.textContent = 'Translation is in progress ... '
+      fetch(constructApi(inputText.value))
+        .then(response => response.json())
+        .then(json =>
+          outputText.textContent = json.contents.translated
+        )
+        .catch((error) => {
+          console.log(error)
+          return (outputText.innerHTML = '<small style="color:red;">There is a internal server error. please try again later 😔...</small>')
+        });
+
+    } else {
+      outputText.innerHTML = '<small style="color:red; font-style:italic;">please enter a text to convert !!</small>'
+    }
+  }
+
+  const clearEventHandler = () => {
+    inputText.value = '';
+    outputText.innerHTML = '<small style="color:gray; letter-spacing:0.1rem;">your converted pirate text would appear here</small>'
+
+  }
+
+  translate.addEventListener('click', translateEventHandler);
+  clear.addEventListener('click', clearEventHandler);
 </script>
 
 </html>
