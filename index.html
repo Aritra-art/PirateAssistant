@@ -60,9 +60,8 @@
 
   const api = "https://api.funtranslations.com/translate/pirate.json"
 
-  const constructApi = (text) => {
-    return `${api}?text=${text}`
-  }
+  const constructApi = (text) => `${api}?text=${text}`
+
   const translateEventHandler = () => {
 
     if (inputText.value) {
